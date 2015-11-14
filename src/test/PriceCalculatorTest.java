@@ -1,6 +1,4 @@
-import main.Discount;
-import main.Item;
-import main.PriceCalculator;
+import main.*;
 import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,9 +6,9 @@ import java.util.Map;
 import static org.junit.Assert.assertTrue;
 
 public class PriceCalculatorTest {
-    public static final Item A = new Item("A");
-    public static final Item B = new Item("B");
-    public static final Item C = new Item("C");
+    public static final Item A = new ItemA();
+    public static final Item B = new ItemB();
+    public static final Item C = new ItemC();
     private PriceCalculator priceCalculator = new PriceCalculator(getNormalPrices(), getDiscountPrices());
 
     @Test
@@ -81,8 +79,8 @@ public class PriceCalculatorTest {
 
     private Map<Item, Discount> getDiscountPrices() {
         Map<Item, Discount> discountedItemPrices = new HashMap<>();
-        discountedItemPrices.put(new Item("A"), new Discount(3,130));
-        discountedItemPrices.put(new Item("B"), new Discount(2,45));
+        discountedItemPrices.put(A, new Discount(3,130));
+        discountedItemPrices.put(B, new Discount(2,45));
         return discountedItemPrices;
     }
 }

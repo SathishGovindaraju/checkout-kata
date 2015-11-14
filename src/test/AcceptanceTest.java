@@ -9,10 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 public class AcceptanceTest {
 
-    private static final Item A = new Item("A");
-    private static final Item B = new Item("B");
-    private static final Item C = new Item("C");
-    private static final Item D = new Item("D");
+    private static final Item A = new ItemA();
+    private static final Item B = new ItemB();
+    private static final Item C = new ItemC();
+    private static final Item D = new ItemD();
 
     private ShoppingCart shoppingCart;
     private ItemScanner scanner;
@@ -20,7 +20,7 @@ public class AcceptanceTest {
 
     @Before
     public void setUp(){
-        priceCalculator = new PriceCalculator(getItemNormalPrices(), getDiscountPrices());
+        priceCalculator = new PriceCalculator(getNormalPrices(), getDiscountPrices());
         shoppingCart = new ShoppingCart(priceCalculator);
         scanner = new ItemScanner(shoppingCart);
     }
@@ -163,7 +163,7 @@ public class AcceptanceTest {
         assertTrue(shoppingCart.checkout() == 305);
     }
 
-    private Map<Item, Integer> getItemNormalPrices() {
+    private Map<Item, Integer> getNormalPrices() {
         Map<Item,Integer> itemPrices = new HashMap<>();
         itemPrices.put(A, 50);
         itemPrices.put(B, 30);
@@ -174,8 +174,8 @@ public class AcceptanceTest {
 
     private Map<Item, Discount> getDiscountPrices() {
         Map<Item, Discount> discountedItemPrices = new HashMap<>();
-        discountedItemPrices.put(new Item("A"), new Discount(3,130));
-        discountedItemPrices.put(new Item("B"), new Discount(2,45));
+        discountedItemPrices.put(A, new Discount(3,130));
+        discountedItemPrices.put(B, new Discount(2,45));
         return discountedItemPrices;
     }
 }

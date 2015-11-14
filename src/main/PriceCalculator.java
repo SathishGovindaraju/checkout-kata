@@ -15,11 +15,6 @@ public class PriceCalculator {
 
     public int calculatePriceForItems(Map<Item, Integer> items) {
 
-//        final Map<Item, Integer> itemsWhichHasDiscounts = getItemsWhichHasDicounts(items);
-//        final Map<Item, Integer> itemsWhichHasNoDiscounts = getItemsWhichHasNoDicounts(items, itemsWhichHasDiscounts);
-//
-//        final int discountedItemsPrice = getPriceForDiscountedItems(itemsWhichHasDiscounts);
-//
         for (Item item : items.keySet()) {
             final boolean itemHasDiscount = hasDiscountForItem(item);
             final Integer normalItemPrice = itemPrices.get(item);
@@ -32,32 +27,8 @@ public class PriceCalculator {
                 total += normalItemPrice * numberOfItem;
             }
         }
+
         return total;
-    }
-
-    private int getPriceForDiscountedItems(Map<Item, Integer> items) {
-
-        return 0;
-    }
-
-    private Map<Item, Integer> getItemsWhichHasNoDicounts(Map<Item, Integer> items, Map<Item, Integer> itemsWhichHasDicounts) {
-        for (Item item : itemsWhichHasDicounts.keySet()) {
-            items.remove(item);
-        }
-
-        return items;
-    }
-
-    private Map<Item, Integer> getItemsWhichHasDicounts(Map<Item, Integer> items) {
-        Map<Item, Integer> itemsWithDiscount = new HashMap<>();
-
-        for (Item item : items.keySet()) {
-            if(hasDiscountForItem(item)){
-                itemsWithDiscount.put(item, items.get(item));
-            }
-        }
-
-        return items;
     }
 
     private int getItemDiscountPrice(Item item) {

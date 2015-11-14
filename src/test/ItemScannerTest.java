@@ -1,15 +1,12 @@
-import main.Item;
-import main.ItemScanner;
-import main.PriceCalculator;
-import main.ShoppingCart;
+import main.*;
 import org.junit.Test;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertTrue;
 
 public class ItemScannerTest {
-    private static final Item A = new Item("A");
-    private static final Item B = new Item("B");
+    private static final Item A = new ItemA();
+    private static final Item B = new ItemB();
 
     private PriceCalculator priceCalculator = new PriceCalculator(new HashMap<>(), new HashMap<>());
     private ShoppingCart shoppingCart = new ShoppingCart(priceCalculator);
