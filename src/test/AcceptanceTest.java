@@ -1,5 +1,6 @@
 import main.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -16,12 +17,15 @@ public class AcceptanceTest {
 
     private ShoppingCart shoppingCart;
     private ItemScanner scanner;
-    private PriceCalculator priceCalculator;
+
+    @BeforeClass
+    public static void initialize(){
+        PriceHolder.updatePrices(getNormalPrices(), getDiscountPrices());
+    }
 
     @Before
     public void setUp(){
-        priceCalculator = new PriceCalculator(getNormalPrices(), getDiscountPrices());
-        shoppingCart = new ShoppingCart(priceCalculator);
+        shoppingCart = new ShoppingCart();
         scanner = new ItemScanner(shoppingCart);
     }
 
@@ -163,7 +167,7 @@ public class AcceptanceTest {
         assertTrue(shoppingCart.checkout() == 305);
     }
 
-    private Map<Item, Integer> getNormalPrices() {
+    private static Map<Item, Integer> getNormalPrices() {
         Map<Item,Integer> itemPrices = new HashMap<>();
         itemPrices.put(A, 50);
         itemPrices.put(B, 30);
@@ -172,7 +176,7 @@ public class AcceptanceTest {
         return itemPrices;
     }
 
-    private Map<Item, Discount> getDiscountPrices() {
+    private static Map<Item, Discount> getDiscountPrices() {
         Map<Item, Discount> discountedItemPrices = new HashMap<>();
         discountedItemPrices.put(A, new Discount(3,130));
         discountedItemPrices.put(B, new Discount(2,45));

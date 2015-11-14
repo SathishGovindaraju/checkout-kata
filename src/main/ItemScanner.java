@@ -10,13 +10,17 @@ public class ItemScanner {
     }
 
     public void scanItem(Item item) {
-        Map<Item, Integer> shoppingCartItems = shoppingCart.getItems();
-        final Integer itemCount = shoppingCartItems.get(item);
+        Map<Item, Integer> shoppingCartItems = shoppingCart.getItemsInCart();
+        final Integer itemCount = getExistingCountForItem(item, shoppingCartItems);
         if(itemCount == null){
             shoppingCartItems.put(item, 1);
         }else{
             shoppingCartItems.put(item, itemCount+1);
         }
-        shoppingCart.updateItems(shoppingCartItems);
+        shoppingCart.updateCart(shoppingCartItems);
+    }
+
+    private Integer getExistingCountForItem(Item item, Map<Item, Integer> shoppingCartItems) {
+        return shoppingCartItems.get(item);
     }
 }

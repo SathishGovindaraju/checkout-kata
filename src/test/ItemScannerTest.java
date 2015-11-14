@@ -1,6 +1,5 @@
 import main.*;
 import org.junit.Test;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,29 +7,28 @@ public class ItemScannerTest {
     private static final Item A = new ItemA();
     private static final Item B = new ItemB();
 
-    private PriceCalculator priceCalculator = new PriceCalculator(new HashMap<>(), new HashMap<>());
-    private ShoppingCart shoppingCart = new ShoppingCart(priceCalculator);
+    private ShoppingCart shoppingCart = new ShoppingCart();
     private ItemScanner scanner = new ItemScanner(shoppingCart);
 
     @Test
     public void shouldUpdateShoppingCartWithNewlyAddedItem(){
-        assertTrue(shoppingCart.getItems().size() == 0);
+        assertTrue(shoppingCart.getItemsInCart().size() == 0);
 
         scanner.scanItem(A);
 
-        assertTrue(shoppingCart.getItems().size() == 1);
-        assertTrue(shoppingCart.getItems().get(A) == 1);
+        assertTrue(shoppingCart.getItemsInCart().size() == 1);
+        assertTrue(shoppingCart.getItemsInCart().get(A) == 1);
     }
 
     @Test
     public void shouldUpdateShoppingCartWithUpdatedItemCountForExistingItem(){
         scanner.scanItem(A);
-        assertTrue(shoppingCart.getItems().size() == 1);
+        assertTrue(shoppingCart.getItemsInCart().size() == 1);
 
         scanner.scanItem(A);
 
-        assertTrue(shoppingCart.getItems().size() == 1);
-        assertTrue(shoppingCart.getItems().get(A) == 2);
+        assertTrue(shoppingCart.getItemsInCart().size() == 1);
+        assertTrue(shoppingCart.getItemsInCart().get(A) == 2);
 
     }
 
@@ -38,15 +36,15 @@ public class ItemScannerTest {
     public void shouldUpdateShoppingCartWithUpdatedItemCountForExistingMultipleItems(){
         scanner.scanItem(A);
         scanner.scanItem(B);
-        assertTrue(shoppingCart.getItems().size() == 2);
+        assertTrue(shoppingCart.getItemsInCart().size() == 2);
 
         scanner.scanItem(A);
         scanner.scanItem(A);
         scanner.scanItem(B);
 
-        assertTrue(shoppingCart.getItems().size() == 2);
-        assertTrue(shoppingCart.getItems().get(A) == 3);
-        assertTrue(shoppingCart.getItems().get(B) == 2);
+        assertTrue(shoppingCart.getItemsInCart().size() == 2);
+        assertTrue(shoppingCart.getItemsInCart().get(A) == 3);
+        assertTrue(shoppingCart.getItemsInCart().get(B) == 2);
 
     }
 }

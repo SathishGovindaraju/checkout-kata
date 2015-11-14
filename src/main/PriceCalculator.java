@@ -3,14 +3,9 @@ package main;
 import java.util.Map;
 
 public class PriceCalculator {
-    private Map<Item, Integer> normalPrices;
-    private Map<Item, Discount> discountPrices;
+    private Map<Item, Integer> normalPrices = PriceHolder.getNormalPrices();
+    private Map<Item, Discount> discountPrices = PriceHolder.getDiscountPrices();
     private int total = 0;
-
-    public PriceCalculator(Map<Item, Integer> normalPrices, Map<Item, Discount> discountPrices) {
-        this.normalPrices = normalPrices;
-        this.discountPrices = discountPrices;
-    }
 
     public int calculatePriceForItems(Map<Item, Integer> items) {
 
@@ -23,7 +18,7 @@ public class PriceCalculator {
                 final int discountPrice = getItemDiscountPrice(item);
                 total = total +
                         calculateNormalPrice(normalItemPrice, numberOfItem, itemThreshold) +
-                        calculateDiscountPrice(numberOfItem, itemThreshold, discountPrice);
+                        calculateDiscountPrice(discountPrice, numberOfItem, itemThreshold);
             }else {
                 total = total +
                         (normalItemPrice * numberOfItem);
@@ -33,11 +28,11 @@ public class PriceCalculator {
         return total;
     }
 
-    private int calculateDiscountPrice(int numberOfItem, int itemThreshold, int discountPrice) {
+    private int calculateDiscountPrice(int discountPrice, int numberOfItem, int itemThreshold) {
         return ((numberOfItem - (numberOfItem % itemThreshold))/ itemThreshold) * discountPrice;
     }
 
-    private int calculateNormalPrice(Integer normalItemPrice, int numberOfItem, int itemThreshold) {
+    private int calculateNormalPrice(int normalItemPrice, int numberOfItem, int itemThreshold) {
         return (numberOfItem % itemThreshold) * normalItemPrice;
     }
 

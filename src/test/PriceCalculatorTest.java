@@ -1,4 +1,6 @@
 import main.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +11,13 @@ public class PriceCalculatorTest {
     public static final Item A = new ItemA();
     public static final Item B = new ItemB();
     public static final Item C = new ItemC();
-    private PriceCalculator priceCalculator = new PriceCalculator(getNormalPrices(), getDiscountPrices());
+
+    PriceCalculator priceCalculator = new PriceCalculator();
+
+    @BeforeClass
+    public static void setUp(){
+        PriceHolder.updatePrices(getNormalPrices(),getDiscountPrices());
+    }
 
     @Test
     public void shouldReturn_0_whenNoItems(){
@@ -69,7 +77,7 @@ public class PriceCalculatorTest {
         assertTrue(priceCalculator.calculatePriceForItems(items) == 245);
     }
 
-    private Map<Item, Integer> getNormalPrices(){
+    private static Map<Item, Integer> getNormalPrices(){
         Map<Item,Integer> normalItemPrices = new HashMap<>();
         normalItemPrices.put(A, 50);
         normalItemPrices.put(B, 30);
@@ -77,7 +85,7 @@ public class PriceCalculatorTest {
         return normalItemPrices;
     }
 
-    private Map<Item, Discount> getDiscountPrices() {
+    private static Map<Item, Discount> getDiscountPrices() {
         Map<Item, Discount> discountedItemPrices = new HashMap<>();
         discountedItemPrices.put(A, new Discount(3,130));
         discountedItemPrices.put(B, new Discount(2,45));
