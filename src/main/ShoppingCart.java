@@ -19,12 +19,11 @@ public class ShoppingCart {
         return total;
     }
 
-    public void addItem(Item item) {
-        final Integer itemCount = items.get(item);
-        if(itemCount == null){
-            this.items.put(item, 1);
-        }else{
-            this.items.put(item, itemCount+1);
-        }
+    public Map<Item, Integer> getItems(){
+        return items;
+    }
+
+    public void updateItems(Map<Item, Integer> shoppingCartItems) {
+        this.items = shoppingCartItems;
     }
 }

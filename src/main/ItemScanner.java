@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Map;
+
 public class ItemScanner {
     private ShoppingCart shoppingCart;
 
@@ -8,6 +10,13 @@ public class ItemScanner {
     }
 
     public void scanItem(Item item) {
-        shoppingCart.addItem(item);
+        Map<Item, Integer> shoppingCartItems = shoppingCart.getItems();
+        final Integer itemCount = shoppingCartItems.get(item);
+        if(itemCount == null){
+            shoppingCartItems.put(item, 1);
+        }else{
+            shoppingCartItems.put(item, itemCount+1);
+        }
+        shoppingCart.updateItems(shoppingCartItems);
     }
 }
