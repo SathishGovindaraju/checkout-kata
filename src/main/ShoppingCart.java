@@ -1,8 +1,6 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ShoppingCart {
@@ -16,10 +14,7 @@ public class ShoppingCart {
         itemPrices.put(new Item("D"), 15);
     }
 
-    public int checkout() {
-        if(items.size() == 0) {
-            total = 0;
-        }
+    public int totalPrice() {
 
         for (Item item : items.keySet()) {
             total += itemPrices.get(item) * items.get(item);
@@ -28,7 +23,7 @@ public class ShoppingCart {
         return total;
     }
 
-    public void addItem(Item item) {
+    public void scanItem(Item item) {
         final Integer itemCount = items.get(item);
         if(itemCount == null){
             this.items.put(item, 1);
