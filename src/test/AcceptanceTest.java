@@ -1,5 +1,6 @@
 import main.Item;
 import main.ItemScanner;
+import main.PriceCalculator;
 import main.ShoppingCart;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,10 +20,12 @@ public class AcceptanceTest {
 
     private ShoppingCart shoppingCart;
     private ItemScanner scanner;
+    private PriceCalculator priceCalculator;
 
     @Before
     public void setUp(){
-        shoppingCart = new ShoppingCart(getItemNormalPrices());
+        priceCalculator = new PriceCalculator(getItemNormalPrices());
+        shoppingCart = new ShoppingCart(priceCalculator);
         scanner = new ItemScanner(shoppingCart);
     }
 

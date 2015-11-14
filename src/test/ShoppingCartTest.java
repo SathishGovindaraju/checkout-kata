@@ -1,6 +1,6 @@
 import main.Item;
+import main.PriceCalculator;
 import main.ShoppingCart;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -16,7 +16,8 @@ public class ShoppingCartTest {
         itemPrices.put(new Item("B"), 30);
     }
 
-    private ShoppingCart shoppingCart = new ShoppingCart(itemPrices);
+    private PriceCalculator priceCalculator = new PriceCalculator(itemPrices);
+    private ShoppingCart shoppingCart = new ShoppingCart(priceCalculator);
 
     @Test
     public void shouldReturn_0_whenNoItemsInShoppingCart(){
