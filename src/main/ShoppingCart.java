@@ -11,7 +11,7 @@ public class ShoppingCart {
         this.priceCalculator = priceCalculator;
     }
 
-    public int totalPrice() {
+    public int checkout() {
         return priceCalculator.calculatePriceForItems(items);
     }
 

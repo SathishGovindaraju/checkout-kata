@@ -21,7 +21,7 @@ public class ShoppingCartTest {
 
     @Test
     public void shouldReturn_0_whenNoItemsInShoppingCart(){
-        assertTrue(shoppingCart.totalPrice() == 0);
+        assertTrue(shoppingCart.checkout() == 0);
     }
 
     @Test
@@ -31,6 +31,6 @@ public class ShoppingCartTest {
         items.put(new Item("B"), 1);
         shoppingCart.updateItems(items);
 
-        assertTrue(shoppingCart.totalPrice() == 80);
+        assertTrue(shoppingCart.checkout() == 80);
     }
 }
