@@ -1,3 +1,4 @@
+import main.Discount;
 import main.Item;
 import main.PriceCalculator;
 import org.junit.Test;
@@ -9,7 +10,8 @@ import static org.junit.Assert.assertTrue;
 public class PriceCalculatorTest {
     public static final Item A = new Item("A");
     public static final Item B = new Item("B");
-    private PriceCalculator priceCalculator = new PriceCalculator(getNormalPrices());
+    public static final Item C = new Item("C");
+    private PriceCalculator priceCalculator = new PriceCalculator(getNormalPrices(), getDiscountPrices());
 
     @Test
     public void shouldReturn_0_whenNoItems(){
@@ -38,10 +40,49 @@ public class PriceCalculatorTest {
         assertTrue(priceCalculator.calculatePriceForItems(items) == 80);
     }
 
+    @Test
+    public void shouldReturn_130_whenListHasItem_A_A_A(){
+        HashMap<Item, Integer> items = new HashMap<>();
+        items.put(A, 3);
+        assertTrue(priceCalculator.calculatePriceForItems(items) == 130);
+    }
+
+    @Test
+    public void shouldReturn_180_whenListHasItem_A_A_A_A(){
+        HashMap<Item, Integer> items = new HashMap<>();
+        items.put(A, 4);
+        assertTrue(priceCalculator.calculatePriceForItems(items) == 180);
+    }
+
+    @Test
+    public void shouldReturn_225_whenListHasItem_A_A_A_A_B_B(){
+        HashMap<Item, Integer> items = new HashMap<>();
+        items.put(A, 4);
+        items.put(B, 2);
+        assertTrue(priceCalculator.calculatePriceForItems(items) == 225);
+    }
+
+    @Test
+    public void shouldReturn_245_whenListHasItem_A_A_A_A_B_B_C(){
+        HashMap<Item, Integer> items = new HashMap<>();
+        items.put(A, 4);
+        items.put(B, 2);
+        items.put(C, 1);
+        assertTrue(priceCalculator.calculatePriceForItems(items) == 245);
+    }
+
     private Map<Item, Integer> getNormalPrices(){
-        Map<Item,Integer> itemPrices = new HashMap<>();
-        itemPrices.put(A, 50);
-        itemPrices.put(B, 30);
-        return itemPrices;
+        Map<Item,Integer> normalItemPrices = new HashMap<>();
+        normalItemPrices.put(A, 50);
+        normalItemPrices.put(B, 30);
+        normalItemPrices.put(C, 20);
+        return normalItemPrices;
+    }
+
+    private Map<Item, Discount> getDiscountPrices() {
+        Map<Item, Discount> discountedItemPrices = new HashMap<>();
+        discountedItemPrices.put(new Item("A"), new Discount(3,130));
+        discountedItemPrices.put(new Item("B"), new Discount(2,45));
+        return discountedItemPrices;
     }
 }

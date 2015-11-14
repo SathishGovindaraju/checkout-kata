@@ -1,7 +1,4 @@
-import main.Item;
-import main.ItemScanner;
-import main.PriceCalculator;
-import main.ShoppingCart;
+import main.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +20,7 @@ public class AcceptanceTest {
 
     @Before
     public void setUp(){
-        priceCalculator = new PriceCalculator(getItemNormalPrices());
+        priceCalculator = new PriceCalculator(getItemNormalPrices(), getDiscountPrices());
         shoppingCart = new ShoppingCart(priceCalculator);
         scanner = new ItemScanner(shoppingCart);
     }
@@ -65,10 +62,10 @@ public class AcceptanceTest {
     }
 
     @Test
-    public void shouldReturn_60_when_2_Item_B_checkedOut(){
+    public void shouldReturn_45_when_2_Item_B_checkedOut(){
         scanner.scanItem(B);
         scanner.scanItem(B);
-        assertTrue(shoppingCart.checkout() == 60);
+        assertTrue(shoppingCart.checkout() == 45);
     }
 
     @Test
@@ -109,6 +106,63 @@ public class AcceptanceTest {
         assertTrue(shoppingCart.checkout() == 115);
     }
 
+    @Test
+    public void shouldReturn_130_when_Items_A_A_A_checkedOut(){
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        assertTrue(shoppingCart.checkout() == 130);
+    }
+
+    @Test
+    public void shouldReturn_180_when_Items_A_A_A_A_checkedOut(){
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        assertTrue(shoppingCart.checkout() == 180);
+    }
+
+    @Test
+    public void shouldReturn_245_when_Items_A_A_A_A_B_C_D_checkedOut(){
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+        scanner.scanItem(C);
+        scanner.scanItem(D);
+        assertTrue(shoppingCart.checkout() == 245);
+    }
+
+    @Test
+    public void shouldReturn_260_when_Items_A_A_A_A_B_B_C_D_checkedOut(){
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+        scanner.scanItem(B);
+        scanner.scanItem(C);
+        scanner.scanItem(D);
+        assertTrue(shoppingCart.checkout() == 260);
+    }
+
+    @Test
+    public void shouldReturn_305_when_Items_A_B_A_C_D_A_B_D_A_B_checkedOut(){
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+        scanner.scanItem(A);
+        scanner.scanItem(C);
+        scanner.scanItem(D);
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+        scanner.scanItem(D);
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+        assertTrue(shoppingCart.checkout() == 305);
+    }
+
     private Map<Item, Integer> getItemNormalPrices() {
         Map<Item,Integer> itemPrices = new HashMap<>();
         itemPrices.put(A, 50);
@@ -116,5 +170,12 @@ public class AcceptanceTest {
         itemPrices.put(C, 20);
         itemPrices.put(D, 15);
         return itemPrices;
+    }
+
+    private Map<Item, Discount> getDiscountPrices() {
+        Map<Item, Discount> discountedItemPrices = new HashMap<>();
+        discountedItemPrices.put(new Item("A"), new Discount(3,130));
+        discountedItemPrices.put(new Item("B"), new Discount(2,45));
+        return discountedItemPrices;
     }
 }

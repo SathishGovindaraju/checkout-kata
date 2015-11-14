@@ -11,7 +11,7 @@ public class ItemScannerTest {
     private static final Item A = new Item("A");
     private static final Item B = new Item("B");
 
-    private PriceCalculator priceCalculator = new PriceCalculator(new HashMap<>());
+    private PriceCalculator priceCalculator = new PriceCalculator(new HashMap<>(), new HashMap<>());
     private ShoppingCart shoppingCart = new ShoppingCart(priceCalculator);
     private ItemScanner scanner = new ItemScanner(shoppingCart);
 
