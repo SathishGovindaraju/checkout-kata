@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ItemScannerTest {
     private static final Item A = new Item("A");
+    private static final Item B = new Item("B");
 
     private PriceCalculator priceCalculator = new PriceCalculator(new HashMap<>());
     private ShoppingCart shoppingCart = new ShoppingCart(priceCalculator);
@@ -33,6 +34,22 @@ public class ItemScannerTest {
 
         assertTrue(shoppingCart.getItems().size() == 1);
         assertTrue(shoppingCart.getItems().get(A) == 2);
+
+    }
+
+    @Test
+    public void shouldUpdateShoppingCartWithUpdatedItemCountForExistingMultipleItems(){
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+        assertTrue(shoppingCart.getItems().size() == 2);
+
+        scanner.scanItem(A);
+        scanner.scanItem(A);
+        scanner.scanItem(B);
+
+        assertTrue(shoppingCart.getItems().size() == 2);
+        assertTrue(shoppingCart.getItems().get(A) == 3);
+        assertTrue(shoppingCart.getItems().get(B) == 2);
 
     }
 }
