@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ShoppingCart {
-    private List<Item> items = new ArrayList<>();
     private int total = 0;
+    private Map<Item, Integer> items = new HashMap<>();
     private static Map<Item,Integer> itemPrices = new HashMap<>();
     static {
         itemPrices.put(new Item("A"), 50);
@@ -21,15 +21,19 @@ public class ShoppingCart {
             total = 0;
         }
 
-        for (Item item : items) {
-
-            total += itemPrices.get(item);
+        for (Item item : items.keySet()) {
+            total += itemPrices.get(item) * items.get(item);
         }
 
         return total;
     }
 
     public void addItem(Item item) {
-        this.items.add(item);
+        final Integer itemCount = items.get(item);
+        if(itemCount == null){
+            this.items.put(item, 1);
+        }else{
+            this.items.put(item, itemCount+1);
+        }
     }
 }
