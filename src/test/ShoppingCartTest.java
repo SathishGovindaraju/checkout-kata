@@ -77,4 +77,11 @@ public class ShoppingCartTest {
         assertTrue(shoppingCart.checkout() == 30);
     }
 
+//    @Test
+//    public void shouldReturn_130_when_3_Item_A_checkedOut(){
+//        shoppingCart.addItem(A);
+//        shoppingCart.addItem(A);
+//        shoppingCart.addItem(A);
+//        assertTrue(shoppingCart.checkout() == 130);
+//    }
 }
