@@ -1,23 +1,34 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShoppingCart {
-    private String item;
+    private List<Item> items = new ArrayList<>();
+    private int total = 0;
 
     public int checkout() {
-        if(item == null){
-            return 0;
-        } else if(item.equals("B")){
-            return 30;
-        } else if(item.equals("C")){
-            return 20;
-        } else if(item.equals("D")){
-            return 15;
-        } else{
-            return 50;
+        if(items.size() == 0) {
+            total = 0;
         }
+
+        for (Item item : items) {
+
+            if(item.getItemName().equals("A")){
+                total += 50;
+            } else if(item.getItemName().equals("B")){
+                total += 30;
+            } else if(item.getItemName().equals("C")){
+                total += 20;
+            } else if(item.getItemName().equals("D")){
+                total += 15;
+            }
+        }
+
+        return total;
     }
 
-    public void addItem(String item) {
-        this.item = item;
+    public void addItem(Item item) {
+        this.items.add(item);
     }
 }
