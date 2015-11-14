@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
-public class ShoppingCartTest {
+public class AcceptanceTest {
 
     private static final Item A = new Item("A");
     private static final Item B = new Item("B");
