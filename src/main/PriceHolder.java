@@ -1,11 +1,12 @@
 package main;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public final class PriceHolder {
 
-    private static Map<Item, Integer> normalPrices;
-    private static Map<Item, Discount> discountPrices;
+    private static Map<Item, Integer> normalPrices = new HashMap<>();
+    private static Map<Item, Discount> discountPrices = new HashMap<>();
 
     private  PriceHolder(){}
 

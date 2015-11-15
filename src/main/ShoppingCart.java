@@ -5,10 +5,9 @@ import java.util.Map;
 
 public class ShoppingCart {
     private Map<Item, Integer> items = new HashMap<>();
-    private PriceCalculator priceCalculator = new PriceCalculator();
 
     public int checkout() {
-        return priceCalculator.calculatePriceForItems(items);
+        return PriceCalculator.calculatePriceForItems(items);
     }
 
     public Map<Item, Integer> getItemsInCart(){
